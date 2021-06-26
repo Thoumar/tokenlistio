@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { TokenList } from "./components/token-list/token-list.component";
 import "./App.css";
 
 class App extends Component {
@@ -10,7 +11,9 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		fetch("https://api.nomics.com/v1/currencies?key=e0e5ade77feffe8318fc6dc6c542760bb1e020d1&ids=BTC,ETH,XRP&attributes=id,name,logo_url")
+		fetch(
+			"https://api.nomics.com/v1/currencies?key=e0e5ade77feffe8318fc6dc6c542760bb1e020d1&ids=BTC,ETH,ADA,XRP,USDC,USDT,BNB,CHSB,CHZ,UNI,EOS,ENJ,AVAX,XLM,HBAR,ZEC,KNCL,UTK,OXT,STMX,RSR,COIN,API3,OMI&attributes=id,name,logo_url"
+		)
 			.then((response) => response.json())
 			.then((tokens) => this.setState({ tokens }));
 	}
@@ -18,12 +21,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{this.state.tokens.map((token) => (
-					<div key={token.id}>
-						<img src={token.logo_url} alt={`${token.name} logo`} width="50" />
-						<h1>{token.name}</h1>
-					</div>
-				))}
+				<TokenList tokens={this.state.tokens} />
 			</div>
 		);
 	}
